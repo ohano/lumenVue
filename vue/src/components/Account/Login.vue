@@ -110,7 +110,7 @@
     },
     created() {
       this.checkIsRememberPwd()
-      this.apiPost('admin/base/getConfigs').then((res) => {
+      this.apiPost('getConfigs').then((res) => {
         this.handelResponse(res, (data) => {
           document.title = data.SYSTEM_NAME
           this.systemName = data.SYSTEM_NAME

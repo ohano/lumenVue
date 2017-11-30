@@ -14,3 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->get('getConfigs', 'ConfigsController@getConfigs');
+// $router->options('getConfigs', 'ConfigsController@getConfigs');
