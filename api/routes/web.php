@@ -16,5 +16,6 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->get('getConfigs', 'ConfigsController@getConfigs');
+$router->POST('getConfigs', 'ConfigsController@getConfigs');
+$router->get('getVerify', 'VerifyController@getVerify');
 // $router->options('getConfigs', 'ConfigsController@getConfigs');
