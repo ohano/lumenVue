@@ -15,5 +15,8 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        'Illuminate\Database\Events\StatementPrepared' => [
+            'App\Listeners\DbStateListener',
+        ],
     ];
 }
