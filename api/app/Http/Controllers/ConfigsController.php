@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+
 
 class ConfigsController extends Controller {
+	protected $systemConfigModel;
+
+	public function __construct(\Models\SystemConfig $systemConfigModel) 
+	{
+		$this->systemConfigModel = $systemConfigModel;
+	}
 
 	public function getConfigs() 
 	{
-		// $systemConfig = DB::table('system_config')->where(['name'=>'SYSTEM_NAME'])->value('name');
-		// var_dump($systemConfig);exit();
 		if(!Cache::has('DB_CONFIG_DATA')){
 			//获取所有系统配置
-            // $systemConfig = model('admin/SystemConfig')->getDataList();
-            // $systemConfig = Models\admin\Configs
-           	$systemConfig = DB::table('system_config')->where(['name'=>'SYSTEM_NAME'])->first();
+           	$systemConfig = $this->systemConfigModel->getConfigs();
+           	foreach ($systemConfig as $k => $v) {
+           		$return_arr[$v['name']] = $v['value'];
+           	}
+           	//把系统配置设进缓存中
             Cache::put('DB_CONFIG_DATA', null);
-            Cache::put('DB_CONFIG_DATA', $systemConfig, 36000); //缓存配置
+            Cache::put('DB_CONFIG_DATA', $return_arr, 36000); 
 		}else{
-			$systemConfig = Cache::get('DB_CONFIG_DATA');
+			$return_arr = Cache::get('DB_CONFIG_DATA');
 		}
-        return $this->apiReturn($systemConfig, SUCCESS_CODE);
+        return $this->apiReturn($return_arr, SUCCESS_CODE);
 	}
 }

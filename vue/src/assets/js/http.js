@@ -58,7 +58,7 @@ const apiMethods = {
     },
     handelResponse(res, cb, errCb) {
       _g.closeGlobalLoading()
-      if (res.code == 200) {
+      if (res.code == 0) {
         cb(res.data)
       } else {
         if (typeof errCb == 'function') {

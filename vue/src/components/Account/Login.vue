@@ -112,13 +112,12 @@
       this.checkIsRememberPwd()
       this.apiPost('getConfigs').then((res) => {
         this.handelResponse(res, (data) => {
-          console.log(data)
-          // document.title = data.SYSTEM_NAME
-          // this.systemName = data.SYSTEM_NAME
-          // if (parseInt(data.IDENTIFYING_CODE)) {
-          //   this.requireVerify = true
-          //   this.rules2.verifyCode[0].required = true
-          // }
+          document.title = data.SYSTEM_NAME
+          this.systemName = data.SYSTEM_NAME
+          if (parseInt(data.IDENTIFYING_CODE)) {
+            this.requireVerify = true
+            this.rules2.verifyCode[0].required = true
+          }
         })
       })
       this.verifyUrl = this.verifyImg
