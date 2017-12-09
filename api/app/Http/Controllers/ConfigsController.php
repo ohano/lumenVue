@@ -10,6 +10,7 @@ class ConfigsController extends Controller {
 	public function __construct(\Models\SystemConfig $systemConfigModel) 
 	{
 		$this->systemConfigModel = $systemConfigModel;
+		parent::__construct();
 	}
 
 	public function getConfigs() 
