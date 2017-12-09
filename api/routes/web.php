@@ -18,4 +18,9 @@ $router->get('/', function () use ($router) {
 
 $router->POST('getConfigs', 'ConfigsController@getConfigs');
 $router->get('getVerify', 'VerifyController@getVerify');
-// $router->options('getConfigs', 'ConfigsController@getConfigs');
+
+$router->group([
+    'namespace' => 'User',
+], function () use ($router) {
+    $router->POST('login/{name}/{status}','LoginController@login');
+});

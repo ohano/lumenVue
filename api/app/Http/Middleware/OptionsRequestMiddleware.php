@@ -8,8 +8,8 @@ class OptionsRequestMiddleware
 
 	public function handle($request, Closure $next)
 	{
+		reponseCrossDomain();
 		if($request->isMethod('options')){
-			reponseCrossDomain();
 			return 1;
 		}
 		return $next($request);

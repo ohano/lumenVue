@@ -8,7 +8,7 @@ class Controller extends BaseController
 {
     public function __construct()
     {
-    	reponseCrossDomain();
+    	// reponseCrossDomain();
     }
 
     protected function apiReturn($data, $code = 0)
