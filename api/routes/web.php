@@ -16,11 +16,14 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->POST('getConfigs', 'ConfigsController@getConfigs');
+$router->POST('getConfigs', [
+	'uses' => 'ConfigsController@getConfigs',
+]);
 $router->get('getVerify', 'VerifyController@getVerify');
 
 $router->group([
     'namespace' => 'User',
 ], function () use ($router) {
-    $router->POST('login/{name}/{status}','LoginController@login');
+    $router->POST('login','LoginController@login');
 });
+

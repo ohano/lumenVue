@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-	public function login(Request $request, $name)
+	public function login(Request $request)
 	{
 		var_dump($request->input('username'));
-		var_dump($name);exit();
+		
 	}
 }
