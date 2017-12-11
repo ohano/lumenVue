@@ -27,6 +27,6 @@ class ConfigsController extends Controller {
 		}else{
 			$return_arr = Cache::get('DB_CONFIG_DATA');
 		}
-        return $this->apiReturn($return_arr, SUCCESS_CODE);
+        return $this->apiReturn($return_arr, $return_code['SUCCESS_CODE']);
 	}
 }
