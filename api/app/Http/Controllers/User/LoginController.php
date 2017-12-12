@@ -7,14 +7,21 @@ use Models\AdminUser;
 
 class LoginController extends Controller
 {
+	private $adminUser;
+	public function __construct(AdminUser $adminUser)
+	{	
+		parent::__construct();
+		$this->adminUser = $adminUser;
+	}
+	
 	public function login(Request $request)
 	{
 		$username = $request->input('username', '');
 		$password = $request->input('password', '');
 		if($username || $password){
-			$userInfo = AdminUser::where(['username',$username]);
+			$userInfo = $this->adminUser->getUserInfoByPassword($username, $password);
 		}else{
-			return $this->apiReturn('请填写用户名和密码', $return_code['LOGIN_MSG_ERROR_CODE']);
+			return $this->apiReturn('请填写用户名和密码', getReturnCode('LOGIN_MSG_ERROR_CODE'));
 		}
 		var_dump($userInfo);exit();
         $param = $this->param;
@@ -27,7 +34,7 @@ class LoginController extends Controller
             return resultArray(['error' => $userModel->getError()]);
         } 
         return resultArray(['data' => $data]);
-		var_dump($request->input('username'));
 		
 	}
+
 }
