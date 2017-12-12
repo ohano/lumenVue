@@ -25,7 +25,8 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 
 $app->withEloquent();
-// var_dump(999);
+
+$app->configure('return_code');
 
 /*
 |--------------------------------------------------------------------------
