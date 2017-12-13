@@ -2,7 +2,7 @@
 
 namespace Models;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class AdminUser extends Model
 {
 	/**
@@ -23,7 +23,12 @@ class AdminUser extends Model
      */
     public function getUserInfoByPassword($username, $password)
     {
-    	$userInfo = $this->where(['username'=>$username, 'password'=>userPasswordMd5($password)])->get();
+    	$userInfo = DB::table($this->table)->where([
+                                    'username'=>$username, 
+                                    'password'=>userPasswordMd5($password),
+                                    'status'  => '1'
+                                ])
+                        ->first();
     	return $userInfo;
     }
 }

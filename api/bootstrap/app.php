@@ -62,6 +62,7 @@ $app->singleton(
 
 $app->middleware([
    App\Http\Middleware\OptionsRequestMiddleware::class,
+   App\Http\Middleware\LoadSystemConfigMiddleware::class,
 ]);
 
 // $app->routeMiddleware([
