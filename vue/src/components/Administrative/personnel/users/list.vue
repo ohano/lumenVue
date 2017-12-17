@@ -129,7 +129,7 @@
             limit: this.limit
           }
         }
-        this.apiGet('admin/users', data).then((res) => {
+        this.apiGet('adminUser', data).then((res) => {
           console.log('res = ', _g.j2s(res))
           this.handelResponse(res, (data) => {
             this.tableData = data.list

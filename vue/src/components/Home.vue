@@ -189,7 +189,7 @@
         this.$refs.changePwd.open()
       },
       getTitleAndLogo() {
-        this.apiPost('admin/base/getConfigs').then((res) => {
+        this.apiPost('getConfigs').then((res) => {
           this.handelResponse(res, (data) => {
             document.title = data.SYSTEM_NAME
             this.logo_type = data.LOGO_TYPE
