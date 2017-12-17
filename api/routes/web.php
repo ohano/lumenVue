@@ -16,7 +16,7 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->POST('getConfigs', [
+$router->post('getConfigs', [
 	'uses' => 'ConfigsController@getConfigs',
 ]);
 $router->get('getVerify', 'VerifyController@getVerify');
@@ -24,6 +24,7 @@ $router->get('getVerify', 'VerifyController@getVerify');
 $router->group([
     'namespace' => 'User',
 ], function () use ($router) {
-    $router->POST('login','LoginController@login');
+    $router->post('login','LoginController@login');
+    $router->get('adminUser','AdminUserController@list');
 });
 

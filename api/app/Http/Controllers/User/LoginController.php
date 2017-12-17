@@ -82,7 +82,7 @@ class LoginController extends Controller
 	protected function getMenuAndRule($user_id)
 	{
 		if ($user_id === 1) {
-    		$menusList = \Models\AdminMenu::where(['status' => 1])->get()->toArray();
+    		$menusList = \Models\AdminMenu::where(['status' => 1])->orderBy('sort', 'asc')->get()->toArray();
     		$rules =\Models\AdminRule::where(['status' => 1])->get()->toArray();
     	} else {
     		$groups = \Models\AdminGroup::where(['user_id' => $user_id])->get()->toArray();
@@ -102,7 +102,7 @@ class LoginController extends Controller
             empty($ruleIds)&&$ruleIds = '';
     		$menuMap['status'] = 1;
             $menuMap['rule_id'] = array('in',$ruleIds);
-            $menusList = \Models\AdminMenu::where($menuMap)->orderBy('sort asc')->get()->toArray();
+            $menusList = \Models\AdminMenu::where($menuMap)->orderBy('sort', 'asc')->get()->toArray();
         }
         if (!$menusList) {
             return null;
