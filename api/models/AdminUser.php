@@ -23,11 +23,12 @@ class AdminUser extends Model
      */
     public function getUserInfoByPassword($username, $password)
     {
-    	$userInfo = DB::table($this->table)->where([
-                                    'username'=>$username, 
-                                    'password'=>userPasswordMd5($password),
-                                    'status'  => '1'
-                                ])
+    	$userInfo = DB::table($this->table)
+    					->where([
+                            'username'=>$username, 
+                            'password'=>userPasswordMd5($password),
+                            'status'  => '1'
+                        ])
                         ->first();
     	return $userInfo;
     }
