@@ -25,6 +25,9 @@ $router->group([
     'namespace' => 'User',
 ], function () use ($router) {
     $router->post('login','LoginController@login');
-    $router->get('adminUser','AdminUserController@list');
+    $router->get('adminUser',[
+    		'uses' => 'AdminUserController@list',
+    		'middleware' => 'auth'
+    	]);
 });
 
