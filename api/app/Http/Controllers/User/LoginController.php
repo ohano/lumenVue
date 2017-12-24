@@ -49,7 +49,7 @@ class LoginController extends Controller
 	        $data['userInfo']		= $userInfo;
 	        $data['_AUTH_LIST_'] 	= $menuRuleList['rulesList'];
 	        $data['sessionId']		= $this->getSessionId($userInfo['id']);
-			$data['authKey'] 		= $this->createAuthKey($data, $data['sessionId']);
+			$data['authKey'] 		= $this->createAuthKey($data);
 	        $data['authList']		= $menuRuleList['rulesList'];
 	        $data['menusList']		= $menuRuleList['menusList'];
 	        unset($data['_AUTH_LIST_']);

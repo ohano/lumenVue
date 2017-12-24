@@ -19,15 +19,21 @@ $router->get('/', function () use ($router) {
 $router->post('getConfigs', [
 	'uses' => 'ConfigsController@getConfigs',
 ]);
+/*
+
+ */
 $router->get('getVerify', 'VerifyController@getVerify');
+
+$router->post('login', [
+	'uses' => 'User\LoginController@login',
+]);
 
 $router->group([
     'namespace' => 'User',
+    'middleware' => 'auth',
 ], function () use ($router) {
-    $router->post('login','LoginController@login');
     $router->get('adminUser',[
     		'uses' => 'AdminUserController@list',
-    		'middleware' => 'auth'
     	]);
 });
 

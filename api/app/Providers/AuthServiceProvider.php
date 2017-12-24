@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cache;
+use Models\AdminUser;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -31,12 +33,38 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
         // var_dump($this->app['auth']);
         $this->app['auth']->viaRequest('api', function ($request) {
-            $authKey = $request->headers->get('authKey');
+
+            /*获取头部信息*/ 
+            $authKey = 'Auth_'.$request->headers->get('authKey');
+            $sessionId = $request->headers->get('sessionid');
+            $cache = Cache::get($authKey);
+            
+            // 校验sessionid和authKey
+            if (empty($sessionId)||empty($authKey)||empty($cache)) {
+                return ['code'=>101, 'error'=>'登录已失效'];
+                // header('Content-Type:application/json; charset=utf-8');
+                // exit(json_encode(['code'=>101, 'error'=>'登录已失效']));
+            }
+
+            // 检查账号有效性
+            $userInfo = $cache['userInfo'];
+            $map['id'] = $userInfo['id'];
+            $map['status'] = 1;
+            if (\Models\AdminUser::where($map)->get()->toArray()) {
+                return ['code'=>103, 'error'=>'账号已被删除或禁用'];
+            }
+            // 更新缓存
+            Cache::put($authKey, $cache, config('systemConfig.LOGIN_SESSION_VALID'));
+            $authAdapter = new AuthAdapter($authKey);
+            $request = Request::instance();
+            $ruleName = $request->module().'-'.$request->controller() .'-'.$request->action(); 
+            if (!$authAdapter->checkLogin($ruleName, $cache['userInfo']['id'])) {
+                header('Content-Type:application/json; charset=utf-8');
+                exit(json_encode(['code'=>102,'error'=>'没有权限']));
+            }
+            $GLOBALS['userInfo'] = $userInfo;
             return $authKey;
-            // var_dump($authKey);exit();
-            // if ($request->input('api_token')) {
-            //     return User::where('api_token', $request->input('api_token'))->first();
-            // }
+            
         });
 
     }
